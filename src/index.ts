@@ -8,6 +8,7 @@ import {
   AmbientLight,
   PointLight,
   Color,
+  ACESFilmicToneMapping,
 } from "three";
 import { Stats } from "three-stats";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -33,7 +34,7 @@ class Main {
   });
   materialPhong: MeshPhongMaterial = new MeshPhongMaterial({ color: 0x0000ff });
 
-  monkeyMesh: Mesh;
+  flowerMesh: Mesh;
 
   pointLight: PointLight;
   controls: OrbitControls = new OrbitControls(
@@ -50,6 +51,7 @@ class Main {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.gammaFactor = 2.2;
     this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.toneMapping = ACESFilmicToneMapping;
     //configure Camera
     this.configureCamera();
     //Load model
@@ -62,31 +64,31 @@ class Main {
 
   configureControls() {
     this.controls.addEventListener("change", this.render);
-    this.controls.minDistance = 10;
-    this.controls.maxDistance = 50;
+    this.controls.minDistance = 1;
+    this.controls.maxDistance = 10;
     this.controls.enablePan = false;
   }
 
   loadModelGLTF() {
     let gltfLoader = new GLTFLoader();
-    gltfLoader.load("assets/webmonkey.glb", (gltf) => {
-      this.monkeyMesh = <Mesh>gltf.scene.children[0];
-      this.monkeyMesh.position.x = 0;
-      this.monkeyMesh.position.y = 0;
-      this.monkeyMesh.position.z = 0;
+    gltfLoader.load("assets/scene.gltf", (gltf) => {
+      this.flowerMesh = <Mesh>gltf.scene.children[0];
+      this.flowerMesh.position.x = 0;
+      this.flowerMesh.position.y = -0.5;
+      this.flowerMesh.position.z = 0;
 
-      this.scene.add(this.monkeyMesh);
+      this.scene.add(this.flowerMesh);
     });
   }
 
   configurePointLight() {
     this.pointLight = new PointLight();
     this.pointLight.position.set(5, 5, 5);
-    this.pointLight.intensity = 0.8;
+    this.pointLight.intensity = 1.2;
   }
 
   configureCamera() {
-    this.camera.position.z = 15;
+    this.camera.position.z = 1;
     this.camera.lookAt(0, 0, 0);
   }
 
