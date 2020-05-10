@@ -8,7 +8,8 @@
     "start": "webpack-dev-server --port 3000 --inline --hot --content-base dist/",
     "build": "npm run clean && webpack -p dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gh-pages -b gh-panges -d build"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b gh-pages -d dist"
   },
   "author": "Ricardo Dias Cavalcante",
   "license": "ISC",
