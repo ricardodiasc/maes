@@ -9,10 +9,16 @@ import {
   PointLight,
   Color,
   ACESFilmicToneMapping,
+  UnsignedByteType,
+  PMREMGenerator,
+  PlaneBufferGeometry,
+  CubeTextureLoader,
 } from "three";
 import { Stats } from "three-stats";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
+import { RoughnessMipmapper } from "three/examples/jsm/utils/RoughnessMipmapper";
 
 class Main {
   scene: Scene = new Scene();
@@ -56,9 +62,23 @@ class Main {
     this.configureCamera();
     //Load model
     this.loadModelGLTF();
+
     //Configure controls
     this.configureControls();
 
+    const cubeTextureLoader2 = new CubeTextureLoader();
+    cubeTextureLoader2.setPath("assets/forrest2/");
+
+    const cubeTexture2 = cubeTextureLoader2.load([
+      "px.png",
+      "nx.png",
+      "py.png",
+      "ny.png",
+      "pz.png",
+      "nz.png",
+    ]);
+
+    this.scene.background = cubeTexture2;
     document.body.appendChild(this.stats.dom);
   }
 
@@ -84,7 +104,7 @@ class Main {
   configurePointLight() {
     this.pointLight = new PointLight();
     this.pointLight.position.set(5, 5, 5);
-    this.pointLight.intensity = 1.2;
+    this.pointLight.intensity = 3;
   }
 
   configureCamera() {
