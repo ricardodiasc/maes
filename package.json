@@ -6,15 +6,16 @@
   "scripts": {
     "clean": "rimraf dist",
     "start": "webpack-dev-server --port 3000 --inline --hot --content-base dist/",
-    "build": "npm run clean && webpack -p",
+    "build": "npm run clean && webpack -p dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "npm run build && git subtree push --prefix dist origin gh-pages"
+    "deploy": "gh-pages -b gh-panges -d build"
   },
   "author": "Ricardo Dias Cavalcante",
   "license": "ISC",
   "devDependencies": {
     "copy-webpack-plugin": "^5.0.2",
     "file-loader": "^6.0.0",
+    "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^3.2.0",
     "json-loader": "^0.5.7",
     "rimraf": "^2.6.3",
